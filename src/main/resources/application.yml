@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: cz-ai-agent
+  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/chengchi-ai-agent?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai&allowMultiQueries=true&rewriteBatchedStatements=true
+#    username: root
+#    password: hsp
+    url: jdbc:postgresql://rm-cn-7js4hr1s700031lo.rwlb.rds.aliyuncs.com:5432/cheng_ai_agent
+    username: my_user
+    password: 731080Qabcz
+  ai:
+    dashscope:
+      api-key: 'sk-81bfee52663041b0bbdceb5047f631db'
+      chat:
+        options:
+          model: qwen-plus
+      read-timeout: 300
+# 临时注释掉，方便大家开发调试和部署
+#    mcp:
+#      client:
+#        sse:
+#          connections:
+#            url: http://localhost:8127
+#        stdio:
+#          servers-configuration: classpath:mcp-servers.json
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        dimensions: 1536
+        distance-type: COSINE_DISTANCE
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
+        initialize-schema: true
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+# springdoc-openapi
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+      - group: 'default'
+        paths-to-match: '/**'
+        packages-to-scan: com.chengzhi.czaiagent.controller
+# knife4
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+# searchAPI
+search-api:
+  api-key: 'YXRVEH5fs5ms74P7wrERa7h9'
